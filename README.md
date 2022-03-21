@@ -1,5 +1,8 @@
 # twitpic
-Update your Twitter profile picture by selecting an image on a website.
+Automatically update your Twitter profile picture by selecting from a list of images on your website.
+
+# Live Demo
+https://thomasloupe.com/twitter/index.php
 
 Note: This repository uses twitter-api-php/TwitterAPIExchange.php located [here](https://github.com/J7mbo/twitter-api-php/blob/master/TwitterAPIExchange.php).
 The file has been included in this release but credit goes to [J7mbo](https://github.com/J7mbo) for his great Twitter API.
