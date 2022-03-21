@@ -48,32 +48,33 @@ function button($buttonName){
                 To change my Twitter profile image, select one of the images below:
             </h2>
         </div>
-        <!--ADD A BUTTON FOR EACH IMAGE YOU HAVE. CHANGE THE VALUE AND IMG SRC TO EQUAL YOUR IMAGE NAME-->
+        <!--ADD A BUTTON FOR EACH IMAGE YOU HAVE-->
         <div class="container">
             <div class="galleryItem">
                 <form method="post">
                     <input type="hidden" name="buttonName" value="0" />
-                    <button type="submit"><img src='images/0.jpg' name="button0" value="button0" enctype="multipart/form-data"/>
+                    <button type="submit"><img src='images/0.jpg' name="button0" enctype="multipart/form-data"/>
                 </form>
             </div>
             <div class="galleryItem">
                 <form method="post">
                     <input type="hidden" name="buttonName" value="1" />
-                    <button type="submit"><img src='images/1.jpg' name="button1" value="button1" enctype="multipart/form-data"/>
+                    <button type="submit"><img src='images/1.jpg' name="button1" enctype="multipart/form-data"/>
                 </form>
             </div>
             <div class="galleryItem">
                 <form method="post">
                     <input type="hidden" name="buttonName" value="2" />
-                    <button type="submit"><img src='images/2.jpg' name="button1" value="button1" enctype="multipart/form-data"/>
+                    <button type="submit"><img src='images/2.jpg' name="button2" enctype="multipart/form-data"/>
                 </form>
             </div>
             <div class="galleryItem">
                 <form method="post">
                     <input type="hidden" name="buttonName" value="3" />
-                    <button type="submit"><img src='images/3.jpg' name="button1" value="button1" enctype="multipart/form-data"/>
+                    <button type="submit"><img src='images/3.jpg' name="button3" enctype="multipart/form-data"/>
                 </form>
             </div>
+            <!--ADD NEW BUTTONS HERE. CHANGE THE VALUE TO THE IMAGE'S NAME (Ex: 4) AND IMG SRC TO PATH+IMAGENAME+EXT (Ex: images/4.jpg)-->
         </div>
     </body>
 </html>
