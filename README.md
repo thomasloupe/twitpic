@@ -1,4 +1,4 @@
-# twitpic
+# Twitpic
 Automatically update your Twitter profile picture by selecting from a list of images on your website.
 
 # Live Demo
