@@ -4,7 +4,7 @@ Automatically update your Twitter profile picture by selecting from a list of im
 # Live Demo
 https://thomasloupe.com/twitter/index.php
 
-Note: This repository uses twitter-api-php/TwitterAPIExchange.php located [here](https://github.com/J7mbo/twitter-api-php/blob/master/TwitterAPIExchange.php) created by [J7mbo](https://github.com/J7mbo).
+Note: Twitpic uses twitter-api-php/TwitterAPIExchange.php located [here](https://github.com/J7mbo/twitter-api-php/blob/master/TwitterAPIExchange.php) created by [J7mbo](https://github.com/J7mbo).
 
 # Getting Started
 1. Visit the [Twitter Developer Website](https://developer.twitter.com/en/portal/dashboard) and set up an application.
