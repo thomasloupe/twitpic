@@ -1,17 +1,37 @@
 # Twitpic
+
 Automatically update your Twitter profile picture by selecting from a list of images on your website.
 
-# Live Demo
-https://thomasloupe.com/twitter/index.php
+**Notice (November 2024)**: This project no longer works for automatic profile updates. X.com (Twitter) has moved profile image updates to their Pro/Enterprise API tiers which cost $42,000+ per month.
 
-Note: Twitpic uses twitter-api-php/TwitterAPIExchange.php located [here](https://github.com/J7mbo/twitter-api-php/blob/master/TwitterAPIExchange.php) created by [J7mbo](https://github.com/J7mbo).
+1. **Clone**
 
-# Getting Started
-1. Visit the [Twitter Developer Website](https://developer.twitter.com/en/portal/dashboard) and set up an application.
-1. Clone this repository and open config.php. Enter your tokens into each field [from here](https://developer.twitter.com/en/portal/projects-and-apps).
-1. Replace the images inside the images folder with your desired images. Ensure all images are named in numerical order (IE: 0.jpg, 1.jpg, 2.jpg, ...).
-1. Open index.php and change the array on line 16 to the total number of images you placed in the image folder.
-1. Copy lines 53-58 in index.php and paste a copy for each new image you added, if applicable, below the last div on line 77 where the HTML comment is.
-1. Change the value to the value of the button to the image that it belongs to in your images folder.
-1. Change the value of the image source to match the filename of the image it belongs to in your images folder.
-1. Upload your code to desired server and visit the index.php page. Click an image, and Twitter should update your profile image.
+   ```bash
+   git clone https://github.com/yourusername/twitpic.git
+   ```
+
+2. **Add Your Images**
+   - Place your profile image options in the `images/` folder
+   - Supported formats: JPG, JPEG, PNG, GIF, WebP, BMP
+   - Name them anything you want (e.g., `profile1.jpg`, `casual.png`, etc.)
+
+3. **Configure API Keys**
+   - Open `config.php`
+   - Replace placeholder values with your API credentials:
+
+   ```php
+   define ('API_KEY', 'your_api_key');
+   define ('API_KEY_SECRET', 'your_api_secret');
+   define ('ACCESS_TOKEN', 'your_access_token');
+   define ('ACCESS_TOKEN_SECRET', 'your_access_token_secret');
+   ```
+
+4. **Upload**
+   - Upload the entire folder to your web server
+   - Visit `yoursite.tld/twitpic/index.php`
+   - Browse your image options
+   - Manually update your profile on [X.com](https://x.com/settings/profile)
+
+## License
+
+MIT License - feel free to use this code for your own projects.
