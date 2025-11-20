@@ -2,7 +2,7 @@
 
 Automatically update your Twitter profile picture by selecting from a list of images on your website.
 
-**Notice (November 2024)**: This project no longer works for automatic profile updates. X.com (Twitter) has moved profile image updates to their Pro/Enterprise API tiers which cost $42,000+ per month.
+**Notice**: This project no longer works for automatic profile updates. X.com (Twitter) has moved profile image updates to their Pro/Enterprise API tiers which cost $42,000+ per month.
 
 1. **Clone**
 
