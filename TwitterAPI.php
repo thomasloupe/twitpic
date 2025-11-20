@@ -1,87 +1,26 @@
 <?php
+// Prevent direct access to this file
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    die('Direct access not permitted');
+}
 
-/**
- * Twitter-API-PHP : Simple PHP wrapper for the v1.1 API
- *
- * PHP version 5.3.10
- *
- * @category Awesomeness
- * @package  Twitter-API-PHP
- * @author   James Mallison <me@j7mbo.co.uk>
- * @license  MIT License
- * @version  1.0.4
- * @link     http://github.com/j7mbo/twitter-api-php
- */
-class TwitterAPIExchange
+class TwitterAPI
 {
-    /**
-     * @var string
-     */
     private $oauth_access_token;
-
-    /**
-     * @var string
-     */
     private $oauth_access_token_secret;
-
-    /**
-     * @var string
-     */
     private $consumer_key;
-
-    /**
-     * @var string
-     */
     private $consumer_secret;
-
-    /**
-     * @var array
-     */
     private $postfields;
-
-    /**
-     * @var string
-     */
     private $getfield;
-
-    /**
-     * @var mixed
-     */
     protected $oauth;
-
-    /**
-     * @var string
-     */
     public $url;
-
-    /**
-     * @var string
-     */
     public $requestMethod;
-
-    /**
-     * The HTTP status code from the previous request
-     *
-     * @var int
-     */
     protected $httpStatusCode;
 
-    /**
-     * Create the API access object. Requires an array of settings::
-     * oauth access token, oauth access token secret, consumer key, consumer secret
-     * These are all available by creating your own application on dev.twitter.com
-     * Requires the cURL library
-     *
-     * @throws \RuntimeException When cURL isn't loaded
-     * @throws \InvalidArgumentException When incomplete settings parameters are provided
-     *
-     * @param array $settings
-     */
     public function __construct(array $settings)
     {
-        if (!function_exists('curl_init'))
-        {
-            throw new RuntimeException('TwitterAPIExchange requires cURL extension to be loaded, see: http://curl.haxx.se/docs/install.html');
+        if (!function_exists('curl_init')) {
+            throw new RuntimeException('TwitterAPI requires cURL extension to be loaded');
         }
 
         if (!isset($settings['oauth_access_token'])
@@ -89,7 +28,7 @@ class TwitterAPIExchange
             || !isset($settings['consumer_key'])
             || !isset($settings['consumer_secret']))
         {
-            throw new InvalidArgumentException('Incomplete settings passed to TwitterAPIExchange');
+            throw new InvalidArgumentException('Incomplete settings passed to TwitterAPI');
         }
 
         $this->oauth_access_token = $settings['oauth_access_token'];
@@ -98,15 +37,6 @@ class TwitterAPIExchange
         $this->consumer_secret = $settings['consumer_secret'];
     }
 
-    /**
-     * Set postfields array, example: array('screen_name' => 'J7mbo')
-     *
-     * @param array $array Array of parameters to send to API
-     *
-     * @throws \Exception When you are trying to set both get and post fields
-     *
-     * @return TwitterAPIExchange Instance of self for method chaining
-     */
     public function setPostfields(array $array)
     {
         if (!is_null($this->getGetfield()))
@@ -138,15 +68,6 @@ class TwitterAPIExchange
         return $this;
     }
 
-    /**
-     * Set getfield string, example: '?screen_name=J7mbo'
-     *
-     * @param string $string Get key and value pairs as string
-     *
-     * @throws \Exception
-     *
-     * @return \TwitterAPIExchange Instance of self for method chaining
-     */
     public function setGetfield($string)
     {
         if (!is_null($this->getPostfields()))
@@ -171,37 +92,16 @@ class TwitterAPIExchange
         return $this;
     }
 
-    /**
-     * Get getfield string (simple getter)
-     *
-     * @return string $this->getfields
-     */
     public function getGetfield()
     {
         return $this->getfield;
     }
 
-    /**
-     * Get postfields array (simple getter)
-     *
-     * @return array $this->postfields
-     */
     public function getPostfields()
     {
         return $this->postfields;
     }
 
-    /**
-     * Build the Oauth object using params set in construct and additionals
-     * passed to this method. For v1.1, see: https://dev.twitter.com/docs/api/1.1
-     *
-     * @param string $url           The API url to use. Example: https://api.twitter.com/1.1/search/tweets.json
-     * @param string $requestMethod Either POST or GET
-     *
-     * @throws \Exception
-     *
-     * @return \TwitterAPIExchange Instance of self for method chaining
-     */
     public function buildOauth($url, $requestMethod)
     {
         if (!in_array(strtolower($requestMethod), array('post', 'get', 'put', 'delete')))
@@ -261,16 +161,6 @@ class TwitterAPIExchange
         return $this;
     }
 
-    /**
-     * Perform the actual data retrieval from the API
-     *
-     * @param boolean $return      If true, returns data. This is left in for backward compatibility reasons
-     * @param array   $curlOptions Additional Curl options for this request
-     *
-     * @throws \Exception
-     *
-     * @return string json If $return param is true, returns json data.
-     */
     public function performRequest($return = true, $curlOptions = array())
     {
         if (!is_bool($return))
@@ -317,7 +207,6 @@ class TwitterAPIExchange
         if (($error = curl_error($feed)) !== '')
         {
             curl_close($feed);
-
             throw new \Exception($error);
         }
 
@@ -326,15 +215,6 @@ class TwitterAPIExchange
         return $json;
     }
 
-    /**
-     * Private method to generate the base string used by cURL
-     *
-     * @param string $baseURI
-     * @param string $method
-     * @param array  $params
-     *
-     * @return string Built base string
-     */
     private function buildBaseString($baseURI, $method, $params)
     {
         $return = array();
@@ -348,13 +228,6 @@ class TwitterAPIExchange
         return $method . "&" . rawurlencode($baseURI) . '&' . rawurlencode(implode('&', $return));
     }
 
-    /**
-     * Private method to generate authorization header used by cURL
-     *
-     * @param array $oauth Array of oauth data generated by buildOauth()
-     *
-     * @return string $return Header used by cURL for request
-     */
     private function buildAuthorizationHeader(array $oauth)
     {
         $return = 'Authorization: OAuth ';
@@ -372,18 +245,6 @@ class TwitterAPIExchange
         return $return;
     }
 
-    /**
-     * Helper method to perform our request
-     *
-     * @param string $url
-     * @param string $method
-     * @param string $data
-     * @param array  $curlOptions
-     *
-     * @throws \Exception
-     *
-     * @return string The json response from the server
-     */
     public function request($url, $method = 'get', $data = null, $curlOptions = array())
     {
         if (strtolower($method) === 'get')
@@ -398,13 +259,16 @@ class TwitterAPIExchange
         return $this->buildOauth($url, $method)->performRequest(true, $curlOptions);
     }
 
-    /**
-     * Get the HTTP status code for the previous request
-     *
-     * @return integer
-     */
     public function getHttpStatusCode()
     {
         return $this->httpStatusCode;
+    }
+
+    // Convenience method for profile image updates
+    public function updateProfileImage($imageData)
+    {
+        $url = 'https://api.twitter.com/1.1/account/update_profile_image.json';
+        $postfields = array('image' => $imageData);
+        return $this->request($url, 'POST', $postfields);
     }
 }
